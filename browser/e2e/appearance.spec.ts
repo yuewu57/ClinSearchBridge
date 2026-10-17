@@ -8,8 +8,8 @@ async function runExample(page: Page, example: string) {
 
 test('full bold wordmark and strictly one-way conversion symbols', async ({page}) => {
   await page.goto('/');
-  await expect(page.locator('.brand-name')).toHaveText('ClinSearch-CrossWalk');
-  await expect(page.locator('.brand')).toHaveAttribute('aria-label', 'ClinSearch-CrossWalk home');
+  await expect(page.locator('.brand-name')).toHaveText('ClinSearchBridge');
+  await expect(page.locator('.brand')).toHaveAttribute('aria-label', 'ClinSearchBridge home');
   await expect(page.locator('.brand-mark')).toHaveText('→');
   await expect(page.locator('#empty-state > span')).toHaveText('→');
   const weight = await page.locator('.brand-name').evaluate(node => getComputedStyle(node).fontWeight);
@@ -91,17 +91,18 @@ test('dark mode retains the invalid-query gate and stores only theme preference'
   await expect(page.locator('#copy')).toBeDisabled();
 });
 
-test('associated paper block is present without a premature external link', async ({page}) => {
+test('associated paper block uses current manuscript title and supplied preprint link', async ({page}) => {
   await page.goto('/');
   await expect(page.locator('.paper-label')).toHaveText('ASSOCIATED PAPER');
   await expect(page.locator('#associated-paper-title')).toHaveText(
-    'ClinSearch-Crosswalk: a recall-oriented, auditable clinical search translation framework for Ovid MEDLINE-to-PubMed conversion',
+    'ClinSearchBridge: a recall-oriented, auditable clinical search translation framework for Ovid MEDLINE-to-PubMed conversion',
   );
   await expect(page.locator('.paper-authors')).toHaveText(
-    'Danqi Zhuang · Fang Qi · Xiaoyue Xi · Chris Robertson · Martin Halvey · Yue Wu',
+    'Danqi Zhuang · Fang Qi · Xiaoyue Xi · Chris Robertson · Martin Halvey · Yue Wu (corresponding author)',
   );
-  await expect(page.locator('.paper-link-status')).toHaveText('Paper link forthcoming.');
-  await expect(page.locator('.paper-citation a')).toHaveCount(0);
+  await expect(page.locator('.paper-link-status')).toContainText('Paper:');
+  await expect(page.locator('.paper-citation a')).toHaveCount(1);
+  await expect(page.locator('.paper-citation a')).toHaveAttribute('href', 'https://osf.io/gfe8s_v1');
 });
 
 test('theme selector remains usable without overflow on narrow mobile layouts', async ({page}) => {
