@@ -175,7 +175,7 @@ The software does not establish clinical relevance of retrieved records. Peer re
 
 ## Privacy and security
 
-The browser release performs conversion locally in the user's browser. There are no accounts, analytics, persistent strategy uploads or external conversion calls. Initial page/runtime loading still requires ordinary network access to the chosen static host, which may record standard asset/page requests.
+The browser release performs conversion locally in the user's browser. There are no accounts, persistent strategy uploads or external conversion calls. Website analytics are **disabled unless explicitly configured**. When enabled, Cloudflare Web Analytics collects aggregate page traffic, such as visits, page views, country, browser and device type, through a third-party beacon; it does not receive strategies, uploads, query outputs or audit records as application events. Loading any third-party script adds a browser trust boundary. Initial page/runtime loading also requires ordinary network access to the static host, which may record standard asset/page requests. See [website analytics setup and privacy notes](docs/website_analytics_setup_v1_YW_17102026.md).
 
 Only exact heading labels are sent to NLM when the optional Python online-MeSH mode is deliberately enabled. Complete strategies are not sent for terminology lookup.
 
