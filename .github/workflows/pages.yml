@@ -83,6 +83,9 @@ jobs:
         working-directory: browser
 
       - name: Build static browser application with full frozen terminology
+        env:
+          # Public Cloudflare website token (not a secret); no analytics if unset.
+          VITE_CLOUDFLARE_WEB_ANALYTICS_TOKEN: ${{ vars.CLOUDFLARE_WEB_ANALYTICS_TOKEN }}
         run: npm run build
         working-directory: browser
 
